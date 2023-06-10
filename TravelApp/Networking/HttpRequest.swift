@@ -25,25 +25,6 @@ class HttpRequest {
         self.parameters = parameters
         self.headers = headers
     }
-    
-//    convenience init<K: Encodable>(url: String,
-//                       method: HttpMethod,
-//                       parameters: K,
-//                       headers: Headers = HeaderFactory.createHeaders([.token, .language])) {
-//        self.url = url
-//        self.method = method
-//        do {
-//            let data = try JSONEncoder().encode(parameters)
-//            guard let params = try JSONSerialization.jsonObject(with: data) as? Parameters else {
-//                self.parameters = [:]
-//                return
-//            }
-//            self.parameters = params
-//        } catch {
-//            self.parameters = [:]
-//        }
-//        self.init(url: url, method: method, parameters: parameters, headers: headers)
-//    }
 }
 
 enum HeaderType {
