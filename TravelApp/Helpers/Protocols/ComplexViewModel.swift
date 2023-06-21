@@ -13,7 +13,7 @@ protocol ComplexViewModel: AnyObject {
     func handleError(_ string: String?, type: DataType)
     func hideError(type: DataType)
     func hideAllErrors()
-    func setLoadingState(_ loadingState: Bool, for type: DataType)
+    func setLoadingState(_ loadingState: Bool, for type: DataType, animated: Bool)
     func getErrorDescription(_ type: DataType) -> String?
     func isLoading(_ type: DataType) -> Bool
     func isError(_ type: DataType) -> Bool
@@ -36,12 +36,12 @@ extension ComplexViewModel {
         types.forEach { hideError(type: $0) }
     }
     
-    func setLoadingState(_ loadingState: Bool, for type: DataType) {
+    func setLoadingState(_ loadingState: Bool, for type: DataType, animated: Bool = true) {
         Task {
             if loadingState {
                 await handleHideError(type: type)
             }
-            await changeLoadingState(loadingState, type: type)
+            await changeLoadingState(loadingState, type: type, animated: animated)
         }
     }
     
@@ -103,8 +103,8 @@ extension ComplexViewModel {
 }
 
 private extension ComplexViewModel {
-    @MainActor func changeLoadingState(_ loadingState: Bool, type: DataType) {
-        withAnimation(.defaultSpring) {
+    @MainActor func changeLoadingState(_ loadingState: Bool, type: DataType, animated: Bool) {
+        withAnimation(animated ? .defaultSpring : nil) {
             complexViewModelData[type]?.isLoading = loadingState
         }
     }

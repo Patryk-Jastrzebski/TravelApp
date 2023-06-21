@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct EmailData: Codable {
+struct EmailData: Codable, Equatable {
     let email: String
     let status: EmailStatus
 }

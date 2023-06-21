@@ -6,15 +6,25 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct DashboardScreen: View {
     @StateObject var viewModel = DashboardViewModelImpl()
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-//        Text(viewModel.user?.name ?? "")
-            .task {
-                viewModel.getUser()
+        VStack(spacing: 46) {
+            if viewModel.isLoading(.data) {
+                LoadingRing(isLoading: .constant(true))
+            } else {
+                NavigationView()
+                DashboardScrollView()
+                TripsScrollView()
+                Spacer()
             }
+        }
+        .fullScreenCover(isPresented: $viewModel.tripDetailsPublisher.show) {
+            TripDetailsScreen()
+        }
+        .environmentObject(viewModel)
     }
 }
 

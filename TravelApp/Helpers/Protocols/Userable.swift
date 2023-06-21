@@ -6,21 +6,32 @@
 //
 
 import Foundation
+import Combine
 
-protocol Userable {
+protocol Userable: AnyObject {
     var user: User? { get set }
-    @MainActor func getUser()
-    @MainActor func reloadUser()
+    @MainActor func loadUser()
+    @MainActor func reloadUser() async throws
+    var cancellables: Set<AnyCancellable> { get set }
 }
 
 extension Userable {
-    @MainActor func getUser() {
-        Task {
-            await UserCache.shared.fetchUser()
+    @MainActor func loadUser() {
+        Task { [weak self] in
+            self?.user = await UserCache.shared.getUser()
         }
     }
     
-    func reloadUser() {
-        
+    @MainActor func reloadUser() async throws {
+        self.user = try await UserCache.shared.fetchUser()
+    }
+    
+    func setupUserableBindings() {
+        UserCache.shared.$user
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] data in
+                self?.user = data
+            }
+            .store(in: &cancellables)
     }
 }

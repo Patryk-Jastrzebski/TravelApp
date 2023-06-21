@@ -14,11 +14,18 @@ final class UserCache: ObservableObject {
     
     @Published var user: User?
     
-    @MainActor func fetchUser() async {
+    @MainActor func getUser() async -> User? {
         do {
             self.user = try await service.getUser()
+            return user
         } catch {
             log(.error, .networkResponse, error)
+            return nil
         }
+    }
+    
+    func fetchUser() async throws -> User? {
+        self.user = try await service.getUser()
+        return user
     }
 }

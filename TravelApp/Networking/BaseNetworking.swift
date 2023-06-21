@@ -11,6 +11,7 @@ import Combine
 enum UrlFeaturePath: String {
     case home = "/users"
     case user = "/user"
+    case place = "/places"
 }
 
 class BaseNetworking {
