@@ -10,21 +10,11 @@ import SDWebImageSwiftUI
 
 struct DashboardScreen: View {
     @StateObject var viewModel = DashboardViewModelImpl()
+    @State var test = false
     var body: some View {
-        VStack(spacing: 46) {
-            if viewModel.isLoading(.data) {
-                LoadingRing(isLoading: .constant(true))
-            } else {
-                NavigationView()
-                DashboardScrollView()
-                TripsScrollView()
-                Spacer()
-            }
+        VStack(spacing: 0) {
+            
         }
-        .fullScreenCover(isPresented: $viewModel.tripDetailsPublisher.show) {
-            TripDetailsScreen()
-        }
-        .environmentObject(viewModel)
     }
 }
 
