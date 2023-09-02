@@ -207,7 +207,6 @@
 		3D11BAF92A35E1A0004B9A37 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				3D11BB4F2A3E25AD004B9A37 /* Views */,
 				3D11BB462A3E097C004B9A37 /* Service */,
 				3D11BAFA2A35E1AB004B9A37 /* DashboardViewModel.swift */,
 				3D11BAFC2A35E1C2004B9A37 /* DashboardScreen.swift */,
@@ -277,13 +276,6 @@
 				3D11BB472A3E098B004B9A37 /* DashboardService.swift */,
 			);
 			path = Service;
-			sourceTree = "<group>";
-		};
-		3D11BB4F2A3E25AD004B9A37 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		3D4F28D92A34B8A30081F9C4 /* Logger */ = {
